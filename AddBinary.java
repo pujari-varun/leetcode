@@ -1,4 +1,4 @@
-class Solution {
+public class AddBinary{
     public String addBinary(String a, String b) {
         if(a=="")return b;
         if(b=="")return a;
