@@ -1,0 +1,70 @@
+/*599. Minimum Index Sum of Two Lists */
+
+/*Given two arrays of strings list1 and list2, find the common strings with the least index sum.
+A common string is a string that appeared in both list1 and list2.
+A common string with the least index sum is a common string such that if it appeared at list1[i] and list2[j] then i + j should be the minimum value among all the other common strings.
+Return all the common strings with the least index sum. Return the answer in any order.
+ */
+
+
+
+ 
+class Solution {
+    public String[] findRestaurant(String[] list1, String[] list2) {
+
+        // method-1  : nested loops  O(m*n)
+        /*
+        ArrayList<String> result=new ArrayList<String>();
+        int indexsum=-1;
+        for(int i=0;i<list1.length;i++){
+            String x=list1[i];
+            for(int j=0;j<list2.length;j++){
+                String y=list2[j];
+                if(x.equals(y)){
+                    if(indexsum==-1){ indexsum=i+j;result.add(y);}
+                    else if(i+j==indexsum){
+                        result.add(x);
+                    }
+                    else if(i+j<indexsum){
+                        result.clear();
+                        indexsum=i+j;
+                        result.add(x);
+                    }
+                    break;
+                }
+            }
+        }
+        String[] res=new String[result.size()];
+        int a=0;
+        for(String x:result){
+            res[a++]=x;
+        }
+        return res;
+        */
+
+
+        //method-2  : hashmap
+        int indexsum=Integer.MAX_VALUE;
+        ArrayList<String> result=new ArrayList<String>();
+        HashMap<String,Integer> map=new HashMap<>();
+        for(int i=0;i<list1.length;i++){
+            map.put(list1[i],i);
+        } 
+        for(int j=0;j<list2.length;j++){
+            String y=list2[j];
+            if(map.containsKey(y)){
+                if(j+map.get(y)<indexsum){
+                    indexsum=j+map.get(y);
+                    result.clear();
+                    result.add(y);
+
+                }
+                else if(j+map.get(y)==indexsum){
+                    result.add(y);
+                }
+            }
+        }
+        return result.toArray(new String[result.size()]);
+
+    }
+}
